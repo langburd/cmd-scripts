@@ -7,3 +7,4 @@ for /f "tokens=7 delims=. " %%i in (' bcdedit /copy {current} /d "%CurrentOS% Sa
 bcdedit /set %CurrentID% safeboot network
 bcdedit /timeout 3
 start cmd /k bcdedit
+::
