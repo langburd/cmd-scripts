@@ -7,10 +7,12 @@ Set CreateSystemRestorePoint=%ITDir%\CreateSystemRestorePoint.ps1
 
 echo # https://www.itprotoday.com/windows-7/controlling-system-restore-powershell>%CreateSystemRestorePoint%
 echo:>>%CreateSystemRestorePoint%
+:: Get System drive letter
+echo $SysDrive=$Env:SystemDrive>>%CreateSystemRestorePoint%
 :: Enable System Restore on System Drive
-echo Enable-ComputerRestore -Drive $Env:SystemDrive>>%CreateSystemRestorePoint%
+echo Enable-ComputerRestore -Drive $SysDrive>>%CreateSystemRestorePoint%
 :: Set Max Usage by System Restore on 10% of System Drive
-echo vssadmin Resize ShadowStorage /on=$Env:SystemDrive /for=$Env:SystemDrive /MaxSize=10%%>>%CreateSystemRestorePoint%
+echo vssadmin Resize ShadowStorage /on=$SysDrive /for=$SysDrive /MaxSize=10%%>>%CreateSystemRestorePoint%
 :: Create Restore Point
 echo Checkpoint-Computer -Description $((get-date).ToLocalTime()).ToString("yyyy-MM-dd_HH-mm-ss") -RestorePointType "MODIFY_SETTINGS">>%CreateSystemRestorePoint%
 
